@@ -1,0 +1,281 @@
+cases:
+  - id: TC001
+    question: "Theo Bộ luật Lao động, người lao động là gì?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 3"
+    expected_keywords: ["người làm việc", "thỏa thuận", "trả lương", "quản lý"]
+    expected_answer_points:
+      - "Người lao động làm việc cho người sử dụng lao động theo thỏa thuận."
+      - "Người lao động được trả lương và chịu sự quản lý, điều hành, giám sát."
+
+  - id: TC002
+    question: "Bộ luật Lao động quy định những loại hợp đồng lao động nào?"
+    category: article_specific
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 20"
+    expected_keywords: ["không xác định thời hạn", "xác định thời hạn", "36 tháng"]
+    expected_answer_points:
+      - "Có hợp đồng lao động không xác định thời hạn."
+      - "Có hợp đồng lao động xác định thời hạn không quá 36 tháng."
+
+  - id: TC003
+    question: "Hợp đồng lao động cần có những nội dung chủ yếu nào?"
+    category: article_specific
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 21"
+    expected_keywords: ["tên", "địa chỉ", "công việc", "tiền lương", "thời giờ làm việc"]
+    expected_answer_points:
+      - "Nội dung chủ yếu gồm thông tin các bên, công việc, địa điểm, thời hạn, lương, thời giờ làm việc và các điều kiện liên quan."
+
+  - id: TC004
+    question: "Phụ lục hợp đồng lao động có được sửa đổi thời hạn hợp đồng không?"
+    category: article_specific
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 22"
+    expected_keywords: ["phụ lục", "không được sửa đổi thời hạn", "hợp đồng lao động"]
+    expected_answer_points:
+      - "Phụ lục hợp đồng quy định chi tiết hoặc sửa đổi, bổ sung một số điều khoản."
+      - "Phụ lục không được sửa đổi thời hạn của hợp đồng lao động."
+
+  - id: TC005
+    question: "Thời gian thử việc tối đa đối với công việc của người quản lý doanh nghiệp là bao lâu?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 25"
+    expected_keywords: ["180 ngày", "người quản lý doanh nghiệp"]
+    expected_answer_points:
+      - "Không quá 180 ngày đối với công việc của người quản lý doanh nghiệp."
+
+  - id: TC006
+    question: "Khi kết thúc thời gian thử việc thì người sử dụng lao động phải làm gì?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 27"
+    expected_keywords: ["kết thúc thời gian thử việc", "thông báo kết quả", "đạt yêu cầu"]
+    expected_answer_points:
+      - "Người sử dụng lao động phải thông báo kết quả thử việc."
+      - "Nếu đạt yêu cầu thì tiếp tục thực hiện hợp đồng hoặc giao kết hợp đồng lao động."
+
+  - id: TC007
+    question: "Người sử dụng lao động được tạm thời chuyển người lao động làm công việc khác trong bao lâu?"
+    category: article_specific
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 29"
+    expected_keywords: ["60 ngày", "cộng dồn", "một năm", "đồng ý"]
+    expected_answer_points:
+      - "Có thể tạm thời chuyển làm công việc khác nhưng không quá 60 ngày làm việc cộng dồn trong một năm nếu không có sự đồng ý."
+
+  - id: TC008
+    question: "Hợp đồng lao động chấm dứt trong những trường hợp nào?"
+    category: broad_article
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 34"
+    expected_keywords: ["hết hạn", "hoàn thành công việc", "thỏa thuận chấm dứt", "đơn phương"]
+    expected_answer_points:
+      - "Các trường hợp gồm hết hạn, hoàn thành công việc, hai bên thỏa thuận, đơn phương chấm dứt hợp pháp và các trường hợp luật định khác."
+
+  - id: TC009
+    question: "Người lao động làm theo hợp đồng không xác định thời hạn muốn đơn phương chấm dứt hợp đồng thì phải báo trước bao lâu?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 35"
+    expected_keywords: ["45 ngày", "không xác định thời hạn", "báo trước"]
+    expected_answer_points:
+      - "Phải báo trước ít nhất 45 ngày đối với hợp đồng lao động không xác định thời hạn."
+
+  - id: TC010
+    question: "Trường hợp nào người lao động có quyền đơn phương chấm dứt hợp đồng mà không cần báo trước?"
+    category: article_specific
+    difficulty: hard
+    answerable: true
+    expected_citations:
+      - article: "Điều 35"
+    expected_keywords: ["không được bố trí", "không được trả đủ lương", "ngược đãi", "quấy rối tình dục"]
+    expected_answer_points:
+      - "Có các trường hợp như không được bố trí đúng công việc, không được trả đủ lương hoặc bị ngược đãi/quấy rối tình dục."
+
+  - id: TC011
+    question: "Người sử dụng lao động được đơn phương chấm dứt hợp đồng lao động trong các trường hợp nào?"
+    category: article_specific
+    difficulty: hard
+    answerable: true
+    expected_citations:
+      - article: "Điều 36"
+    expected_keywords: ["thường xuyên không hoàn thành", "ốm đau", "thiên tai", "cơ cấu"]
+    expected_answer_points:
+      - "Có thể đơn phương chấm dứt trong các trường hợp luật định như người lao động thường xuyên không hoàn thành công việc hoặc lý do bất khả kháng."
+
+  - id: TC012
+    question: "Điều kiện hưởng trợ cấp thôi việc được quy định như thế nào?"
+    category: article_specific
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 46"
+    expected_keywords: ["12 tháng", "nửa tháng tiền lương", "mỗi năm làm việc", "trợ cấp thôi việc"]
+    expected_answer_points:
+      - "Người lao động làm việc thường xuyên từ đủ 12 tháng trở lên có thể được trợ cấp thôi việc."
+      - "Mỗi năm làm việc được trợ cấp một nửa tháng tiền lương theo điều kiện luật định."
+
+  - id: TC013
+    question: "Tiền lương theo Bộ luật Lao động được hiểu là gì?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 90"
+    expected_keywords: ["mức lương", "phụ cấp lương", "khoản bổ sung"]
+    expected_answer_points:
+      - "Tiền lương gồm mức lương theo công việc hoặc chức danh, phụ cấp lương và các khoản bổ sung khác."
+
+  - id: TC014
+    question: "Nguyên tắc trả lương cho người lao động là gì?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 94"
+    expected_keywords: ["trực tiếp", "đầy đủ", "đúng hạn"]
+    expected_answer_points:
+      - "Người sử dụng lao động phải trả lương trực tiếp, đầy đủ, đúng hạn cho người lao động."
+
+  - id: TC015
+    question: "Thời giờ làm việc bình thường tối đa là bao nhiêu?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 105"
+    expected_keywords: ["8 giờ", "48 giờ", "một tuần"]
+    expected_answer_points:
+      - "Không quá 8 giờ trong một ngày và không quá 48 giờ trong một tuần."
+
+  - id: TC016
+    question: "Làm thêm giờ bị giới hạn như thế nào theo Bộ luật Lao động?"
+    category: article_specific
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 107"
+    expected_keywords: ["làm thêm giờ", "50%", "40 giờ", "200 giờ"]
+    expected_answer_points:
+      - "Giới hạn theo ngày, tháng và năm; thông thường không quá 40 giờ trong tháng và 200 giờ trong năm, trừ trường hợp đặc biệt."
+
+  - id: TC017
+    question: "Người lao động được nghỉ trong giờ làm việc như thế nào?"
+    category: direct_fact
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 109"
+    expected_keywords: ["nghỉ trong giờ làm việc", "30 phút", "45 phút", "làm việc ban đêm"]
+    expected_answer_points:
+      - "Người lao động làm việc theo thời giờ quy định được nghỉ giữa giờ; làm việc ban đêm có thời gian nghỉ dài hơn."
+
+  - id: TC018
+    question: "Người lao động được nghỉ làm hưởng nguyên lương vào những ngày lễ, tết nào?"
+    category: article_specific
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 112"
+    expected_keywords: ["Tết Dương lịch", "Tết Âm lịch", "Quốc khánh", "nguyên lương"]
+    expected_answer_points:
+      - "Có các ngày nghỉ lễ, tết hưởng nguyên lương như Tết Dương lịch, Tết Âm lịch, Quốc khánh và các ngày luật định."
+
+  - id: TC019
+    question: "Người lao động làm đủ 12 tháng thì được nghỉ hằng năm bao nhiêu ngày?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 113"
+    expected_keywords: ["12 ngày", "14 ngày", "16 ngày", "nghỉ hằng năm"]
+    expected_answer_points:
+      - "Mức cơ bản là 12 ngày làm việc; một số công việc hoặc nhóm lao động được 14 hoặc 16 ngày."
+
+  - id: TC020
+    question: "Bộ luật Lao động bảo vệ thai sản đối với lao động nữ như thế nào?"
+    category: broad_article
+    difficulty: hard
+    answerable: true
+    expected_citations:
+      - article: "Điều 137"
+    expected_keywords: ["thai sản", "lao động nữ", "mang thai", "nuôi con dưới 12 tháng"]
+    expected_answer_points:
+      - "Có các hạn chế đối với việc sử dụng lao động nữ mang thai hoặc nuôi con nhỏ trong một số điều kiện."
+      - "Người sử dụng lao động không được sa thải hoặc đơn phương chấm dứt vì lý do mang thai, nghỉ thai sản, nuôi con nhỏ theo quy định."
+
+  - id: TC021
+    question: "Lao động chưa thành niên là người lao động ở độ tuổi nào?"
+    category: direct_fact
+    difficulty: easy
+    answerable: true
+    expected_citations:
+      - article: "Điều 143"
+    expected_keywords: ["chưa đủ 18 tuổi", "lao động chưa thành niên"]
+    expected_answer_points:
+      - "Lao động chưa thành niên là người lao động chưa đủ 18 tuổi."
+
+  - id: TC022
+    question: "Tuổi nghỉ hưu của người lao động được điều chỉnh theo nguyên tắc nào?"
+    category: article_specific
+    difficulty: medium
+    answerable: true
+    expected_citations:
+      - article: "Điều 169"
+    expected_keywords: ["tuổi nghỉ hưu", "điều kiện lao động bình thường", "lộ trình"]
+    expected_answer_points:
+      - "Tuổi nghỉ hưu được điều chỉnh theo lộ trình và điều kiện lao động bình thường, có trường hợp nghỉ hưu sớm hoặc muộn hơn."
+
+  - id: TC023
+    question: "Công ty phải khấu trừ thuế thu nhập cá nhân của tôi theo biểu thuế nào?"
+    category: out_of_scope
+    difficulty: easy
+    answerable: false
+    expected_citations: []
+    expected_keywords: ["không tìm thấy căn cứ", "tài liệu được cung cấp"]
+    expected_answer_points:
+      - "Câu hỏi thuộc lĩnh vực thuế, không nên trả lời nếu tài liệu chỉ là Bộ luật Lao động."
+
+  - id: TC024
+    question: "Theo Bộ luật Hình sự, tội lừa đảo chiếm đoạt tài sản bị phạt thế nào?"
+    category: out_of_scope
+    difficulty: easy
+    answerable: false
+    expected_citations: []
+    expected_keywords: ["không tìm thấy căn cứ", "tài liệu được cung cấp"]
+    expected_answer_points:
+      - "Câu hỏi ngoài phạm vi Bộ luật Lao động."
+
+  - id: TC025
+    question: "Công ty có được sa thải tôi không?"
+    category: ambiguous
+    difficulty: hard
+    answerable: false
+    expected_citations:
+      - article: "Điều 122"
+      - article: "Điều 125"
+    expected_keywords: ["không đủ căn cứ", "cần thêm thông tin", "xử lý kỷ luật"]
+    expected_answer_points:
+      - "Không được kết luận có/không khi thiếu tình huống cụ thể."
+      - "Có thể nêu cần đối chiếu điều kiện xử lý kỷ luật và hình thức sa thải nếu context được retrieve."
