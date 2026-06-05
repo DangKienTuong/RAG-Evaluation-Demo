@@ -2,7 +2,7 @@
 
 ## Goal
 
-This demo builds a small command-line RAG system for question answering over the Vietnamese Labor Code PDF file `Luật Lao Động Việt Nam Hiện Hành.signed.pdf`. The primary audience is a Software Testing team, so the design favors transparency, debuggability, and clear separation between quality layers: OCR, chunking, retrieval, answer generation, and evaluation.
+This demo builds a small command-line RAG system for question answering over the Vietnamese Labor Code PDF file `Luật Lao Động Việt Nam Hiện Hành.signed.pdf`. The primary audience is a Software Testing team, so the design favors transparency, debuggability, and clear separation between quality layers: OCR, chunking, retrieval, and answer generation.
 
 This is a RAG testing demo, not a legal advice tool. Answers must be grounded only in the context retrieved from the provided PDF.
 
@@ -87,8 +87,8 @@ docker compose run --rm rag ingest --force-ocr
 - `src/rag_eval_demo/chunking.py`: chunks text and attaches article metadata.
 - `src/rag_eval_demo/embeddings.py`: OpenAI embeddings and local hash embeddings for smoke tests.
 - `src/rag_eval_demo/retrieval.py`: BM25, cosine similarity, and hybrid ranking.
-- `src/rag_eval_demo/openai_client.py`: answer generation and LLM-as-judge.
-- `src/rag_eval_demo/evaluation.py`: metrics, rule checks, and report generation.
+- `src/rag_eval_demo/openai_client.py`: answer generation.
+- `src/rag_eval_demo/evaluation.py`: retrieval metrics, lightweight answer checks, and report generation.
 - `eval/test_cases.yaml`: compact evaluation suite.
 - `reports/`: generated evaluation reports.
 

@@ -36,15 +36,6 @@ class EvalCase:
             expected_answer_points=list(data.get("expected_answer_points", [])),
         )
 
-    def expected_payload(self) -> dict[str, Any]:
-        return {
-            "answerable": self.answerable,
-            "expected_citations": self.expected_citations,
-            "expected_keywords": self.expected_keywords,
-            "expected_answer_points": self.expected_answer_points,
-        }
-
-
 def load_cases(path: Path) -> list[EvalCase]:
     try:
         import yaml
@@ -119,28 +110,17 @@ def aggregate(rows: list[dict[str, Any]], top_k: int) -> dict[str, Any]:
         for row in retrieval_hits
         if row["metrics"]["first_evidence_rank"]
     ]
-    judged = [row["judge"] for row in rows if row.get("judge")]
-    groundedness = [
-        judge["groundedness"] for judge in judged if isinstance(judge.get("groundedness"), int)
-    ]
-    high_risk = [
+    unanswerable_non_refusals = [
         row
         for row in rows
-        if (row.get("judge") or {}).get("hallucination_risk") == "high"
-        or (
-            bool(row.get("answer"))
-            and
-            not row["case"]["answerable"]
-            and row["metrics"].get("unanswerable_refusal") is False
-        )
+        if bool(row.get("answer"))
+        and not row["case"]["answerable"]
+        and row["metrics"].get("unanswerable_refusal") is False
     ]
     return {
         f"recall_at_{top_k}": len(retrieval_hits) / len(answerable) if answerable else None,
         "mrr": sum(reciprocal_ranks) / len(answerable) if answerable else None,
-        "average_groundedness": sum(groundedness) / len(groundedness)
-        if groundedness
-        else None,
-        "high_risk_count": len(high_risk),
+        "unanswerable_non_refusal_count": len(unanswerable_non_refusals),
         "case_count": len(rows),
         "answerable_case_count": len(answerable),
     }
@@ -180,28 +160,37 @@ def _markdown_report(rows: list[dict[str, Any]], summary: dict[str, Any], top_k:
         f"- Answerable cases: {summary['answerable_case_count']}",
         f"- Recall@{top_k}: {_fmt_metric(summary.get(f'recall_at_{top_k}'))}",
         f"- MRR: {_fmt_metric(summary.get('mrr'))}",
-        f"- Average groundedness: {_fmt_metric(summary.get('average_groundedness'))}",
-        f"- High-risk cases: {summary.get('high_risk_count')}",
+        f"- Unanswerable non-refusal cases: {summary.get('unanswerable_non_refusal_count')}",
         "",
         "## Case Results",
         "",
-        "| ID | Category | Retrieval | Judge | Notes |",
+        "| ID | Category | Retrieval | Answer checks | Notes |",
         "| --- | --- | --- | --- | --- |",
     ]
     for row in rows:
         metrics = row["metrics"]
-        judge = row.get("judge") or {}
         retrieval = (
             f"rank {metrics['first_evidence_rank']}"
             if metrics["first_evidence_rank"]
             else "miss"
         )
-        judge_text = judge.get("verdict", "n/a")
-        if judge:
-            judge_text += f" / grounded {judge.get('groundedness', 'n/a')}"
-        notes = short_text(judge.get("notes", row.get("answer", "")), limit=120).replace("|", "\\|")
+        if row.get("answer_error"):
+            answer_checks = "error"
+            notes_source = row["answer_error"]
+        elif row.get("answer"):
+            citation = "citation" if metrics["citation_present"] else "no citation"
+            keyword_total = metrics["keyword_total"]
+            keyword_hits = metrics["keyword_hit_count"]
+            answer_checks = f"keywords {keyword_hits}/{keyword_total}, {citation}"
+            if metrics.get("unanswerable_refusal") is not None:
+                answer_checks += f", refusal={metrics['unanswerable_refusal']}"
+            notes_source = row["answer"]
+        else:
+            answer_checks = "not generated"
+            notes_source = ""
+        notes = short_text(notes_source, limit=120).replace("|", "\\|")
         lines.append(
-            f"| {row['case']['id']} | {row['case']['category']} | {retrieval} | {judge_text} | {notes} |"
+            f"| {row['case']['id']} | {row['case']['category']} | {retrieval} | {answer_checks} | {notes} |"
         )
     lines.append("")
     lines.append("## Detailed Samples")
@@ -226,4 +215,6 @@ def _markdown_report(rows: list[dict[str, Any]], summary: dict[str, Any], top_k:
             )
         if row.get("answer"):
             lines.extend(["", "**Answer:**", "", row["answer"].strip(), ""])
+        if row.get("answer_error"):
+            lines.extend(["", "**Answer generation error:**", "", row["answer_error"], ""])
     return "\n".join(lines).strip() + "\n"

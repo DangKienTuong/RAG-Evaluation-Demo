@@ -1,7 +1,7 @@
 [project]
 name = "rag-eval-demo"
 version = "0.1.0"
-description = "CLI RAG demo and evaluation suite for Vietnamese labor law."
+description = "CLI RAG system demo and evaluation scaffold for Vietnamese labor law."
 requires-python = ">=3.12"
 dependencies = [
   "openai>=1.99.0",

@@ -11,7 +11,7 @@ from .embeddings import make_embedder
 from .evaluation import aggregate, load_cases, rule_checks, save_reports
 from .models import Chunk
 from .ocr import load_or_extract_pages
-from .openai_client import RAGOpenAIClient, api_error_result
+from .openai_client import RAGOpenAIClient
 from .retrieval import format_context, search
 from .store import load_index, save_index
 from .text_utils import short_text
@@ -20,7 +20,7 @@ from .text_utils import short_text
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="rag-eval-demo",
-        description="CLI RAG demo and evaluation suite for Vietnamese labor law.",
+        description="CLI RAG system demo and evaluation scaffold for Vietnamese labor law.",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -44,12 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
     ask.add_argument("--local-embeddings", action="store_true")
     ask.set_defaults(func=cmd_ask)
 
-    evaluate = subparsers.add_parser("eval", help="Run compact RAG evaluation suite.")
+    evaluate = subparsers.add_parser("eval", help="Run retrieval and answer-check scaffold.")
     evaluate.add_argument("--cases", type=Path, default=Path("eval/test_cases.yaml"))
     evaluate.add_argument("--top-k", type=int, default=None)
     evaluate.add_argument("--limit", type=int, default=None)
     evaluate.add_argument("--skip-generation", action="store_true")
-    evaluate.add_argument("--skip-judge", action="store_true")
     evaluate.add_argument("--local-embeddings", action="store_true")
     evaluate.add_argument("--report-prefix", default="eval")
     evaluate.set_defaults(func=cmd_eval)
@@ -151,20 +150,12 @@ def cmd_eval(args: argparse.Namespace) -> int:
         print(f"[{index}/{len(cases)}] {case.id}: {case.question}")
         results = search(case.question, chunks, embedder, top_k=top_k)
         answer = ""
-        judge = None
+        answer_error = None
         if client:
             try:
                 answer = client.answer(case.question, results)
             except Exception as exc:
-                judge = api_error_result("answer_generation", exc)
-            else:
-                if not args.skip_judge:
-                    try:
-                        judge = client.judge(
-                            case.question, case.expected_payload(), answer, results
-                        )
-                    except Exception as exc:
-                        judge = api_error_result("llm_judge", exc)
+                answer_error = f"answer_generation error: {type(exc).__name__}: {exc}"
         metrics = rule_checks(case, answer, results)
         rows.append(
             {
@@ -179,8 +170,8 @@ def cmd_eval(args: argparse.Namespace) -> int:
                     "expected_answer_points": case.expected_answer_points,
                 },
                 "metrics": metrics,
-                "judge": judge,
                 "answer": answer,
+                "answer_error": answer_error,
                 "retrieval": [result.to_dict() for result in results],
             }
         )
@@ -223,10 +214,16 @@ def _print_case_line(row: dict[str, Any]) -> None:
         if metrics["first_evidence_rank"]
         else "miss"
     )
-    judge = row.get("judge") or {}
-    verdict = judge.get("verdict", "no-judge")
-    note = short_text(judge.get("notes", row.get("answer", "")), limit=100)
-    print(f"  retrieval={retrieval} verdict={verdict} {note}")
+    if row.get("answer_error"):
+        answer_status = "error"
+        note = short_text(row["answer_error"], limit=100)
+    elif row.get("answer"):
+        answer_status = "generated"
+        note = short_text(row["answer"], limit=100)
+    else:
+        answer_status = "skipped"
+        note = ""
+    print(f"  retrieval={retrieval} answer={answer_status} {note}")
 
 
 def main(argv: list[str] | None = None) -> int:

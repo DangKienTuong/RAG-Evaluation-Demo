@@ -1,6 +1,6 @@
-# RAG Evaluation Demo - Luat Lao Dong Viet Nam
+# RAG System Demo - Luat Lao Dong Viet Nam
 
-Demo CLI RAG cho chu de evaluation mot ung dung hoi dap ve Bo luat Lao dong Viet Nam.
+Demo CLI RAG cho ung dung hoi dap ve Bo luat Lao dong Viet Nam. Repo nay chi giu phan RAG system: OCR, chunking, embedding, hybrid retrieval, answer generation va report retrieval co ban. Phan LLM evaluator duoc de rieng lam bai tap cho hoc vien.
 
 ## Quick Start
 
@@ -23,10 +23,9 @@ docker compose run --rm rag ingest
 docker compose run --rm rag ask "Nguoi lao dong lam hop dong khong xac dinh thoi han muon nghi viec phai bao truoc bao lau?" --show-context
 ```
 
-5. Chay evaluation compact:
+5. Chay report retrieval va answer checks:
 
 ```bash
-docker compose run --rm rag eval --skip-judge
 docker compose run --rm rag eval
 ```
 
@@ -46,4 +45,4 @@ Ket qua offline chi de smoke test pipeline, khong phai metric chat luong RAG tha
 ## Documents
 
 - `docs/RAG_SYSTEM_DESIGN.md`: cach he thong RAG duoc xay dung.
-- `docs/RAG_EVALUATION_GUIDE.md`: cach tao test data va danh gia chat luong.
+- `docs/RAG_EVALUATION_GUIDE.md`: cach doc test data va report retrieval/answer-check co ban.
